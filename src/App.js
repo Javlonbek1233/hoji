@@ -1,102 +1,172 @@
-import React, { useState } from "react";
-import "./App.css";
+import { useState } from "react";
 
+// 1-vazifa: 3 ta component
+function Header() {
+  return <h2>Bu Header qismi</h2>;
+}
+
+function Content() {
+  return <p>Bu Content qismi</p>;
+}
+
+function Footer() {
+  return <h3>Bu Footer qismi</h3>;
+}
+
+// 2-vazifa: Product component
+function Product({ name, price }) {
+  return (
+    <div>
+      <h4>{name}</h4>
+      <p>Narxi: {price} so'm</p>
+    </div>
+  );
+}
+
+// 3-vazifa: Student component
+function Student({ name, age }) {
+  return (
+    <div style={{ margin: "5px", border: "1px solid gray", padding: "10px" }}>
+      <h3>{name}</h3>
+      <p>Yosh: {age}</p>
+    </div>
+  );
+}
+
+// 6-vazifa: Matn almashish
+function ToggleText() {
+  const [text, setText] = useState("Assalomu alaykum");
+  return (
+    <div>
+      <h2>{text}</h2>
+      <button
+        onClick={() =>
+          setText(
+            text === "Assalomu alaykum"
+              ? "Xush kelibsiz!"
+              : "Assalomu alaykum"
+          )
+        }
+      >
+        Almashtir
+      </button>
+    </div>
+  );
+}
+
+// 7-vazifa: Like button
+function LikeButton() {
+  const [like, setLike] = useState(0);
+  return <button onClick={() => setLike(like + 1)}>Like {like}</button>;
+}
+
+// 10-vazifa Card
+function Card({ img, title }) {
+  return (
+    <div className="card">
+      <img src={img} alt={title} />
+      <h3>{title}</h3>
+    </div>
+  );
+}
+
+// ---- ASOSIY APP ----
 function App() {
-
-
-  const [text1, setText1] = useState("Assalomu aleykum");
-  const toggleText1 = () => {
-    setText1(text1 === "Assalomu aleykum" ? "Valeykum assalom" : "Assalomu aleykum");
-  };
-
-  const [bgColor, setBgColor] = useState("pink");
-  const toggleColor = () => {
-    setBgColor(bgColor === "pink" ? "red" : "pink");
-  };
-
- 
-  const [job, setJob] = useState("Frontend Developer");
-
-
-  const [showPass, setShowPass] = useState(false);
-  const [password] = useState("123456");
-  const togglePassword = () => {
-    setShowPass(!showPass);
-  };
-
-
-  const [lang, setLang] = useState("hello");
-  const toggleLang = () => {
-    setLang(lang === "hello" ? "salom" : "hello");
-  };
-
-  const [harf, setHarf] = useState("frontend");
-  const toggleCase = () => {
-    setHarf(harf === "frontend" ? "FRONTEND" : "frontend");
-  };
-
-
-  const [boxSize, setBoxSize] = useState("100px");
-  const toggleSize = () => {
-    setBoxSize(boxSize === "100px" ? "200px" : "100px");
-  };
-
-
-  const [btnText, setBtnText] = useState("Yoqish");
-  const toggleBtn = () => {
-    setBtnText(btnText === "Yoqish" ? "O‘chirish" : "Yoqish");
-  };
+  const numbers = [1,2,3,4,5,6,7,8,9,10];
+  const [count, setCount] = useState(0);
+  const [name, setName] = useState("");
+  const [darkMode, setDarkMode] = useState(false);
 
   return (
-    <div style={{ padding: "30px" }}>
+    <div className={darkMode ? "dark" : "light"} style={{ padding: "20px" }}>
 
-      <h1>🔥 1. Matnni almashtirish</h1>
-      <h2>{text1}</h2>
-      <button onClick={toggleText1}>Almashtir</button>
+      <h1>3 ta vazifa birlashtirilgan web sahifa</h1>
+
+      {/* 1-vazifa */}
+      <Header />
+      <Content />
+      <Footer />
+
       <hr />
 
-      <h1>🎨 2. Rang almashtiruvchi funksiya</h1>
-      <div style={{ width: "150px", height: "80px", background: bgColor }}></div>
-      <button onClick={toggleColor}>Rangni o‘zgartir</button>
+      {/* 2-vazifa */}
+      <h2>Mahsulotlar</h2>
+      <Product name="Olma" price={5000} />
+      <Product name="Banan" price={20000} />
+      <Product name="Gilos" price={18000} />
+      <Product name="Anor" price={15000} />
+      <Product name="Nok" price={9000} />
+
       <hr />
 
-      <h1>🤖 3. Ikki tugmali matn boshqaruv</h1>
-      <h2>{job}</h2>
-      <button onClick={() => setJob("React Developer")}>React Developer</button>
-      <button onClick={() => setJob("JavaScript Developer")}>JavaScript Developer</button>
+      {/* 3-vazifa */}
+      <h2>Studentlar</h2>
+      <Student name="Ali" age={20} />
+      <Student name="Vali" age={22} />
+      <Student name="Hasan" age={19} />
+
       <hr />
 
-      <h1>🔐 4. Parolni ko‘rsat/yashirish</h1>
-      <h2>{showPass ? password : "******"}</h2>
-      <button onClick={togglePassword}>
-        {showPass ? "Yashirish" : "Ko‘rsatish"}
-      </button>
+      {/* 4-vazifa */}
+      <h2>10 ta raqam</h2>
+      {numbers.map((num) => (
+        <p key={num}>{num}</p>
+      ))}
+
       <hr />
 
-      <h1>🌍 5. Tilni almashtirish</h1>
-      <h2>{lang}</h2>
-      <button onClick={toggleLang}>Tilni o‘zgartir</button>
+      {/* 5-vazifa */}
+      <h2>Counter</h2>
+      <h3>{count}</h3>
+      <button onClick={() => setCount(count + 1)}>+</button>
+      <button onClick={() => setCount(count - 1)}>-</button>
+
       <hr />
 
-      <h1>🔠 6. Katta/kichik harf</h1>
-      <h2>{harf}</h2>
-      <button onClick={toggleCase}>Harfni o‘zgartir</button>
+      {/* 6-vazifa */}
+      <ToggleText />
+
       <hr />
 
-      <h1>📦 7. Div o‘lchamini o‘zgartirish</h1>
-      <div
-        style={{
-          width: boxSize,
-          height: boxSize,
-          background: "lightblue",
-        }}
-      ></div>
-      <button onClick={toggleSize}>Hajmni o‘zgartir</button>
+      {/* 7-vazifa */}
+      <LikeButton />
+
       <hr />
 
-      <h1>🖲️ 8. Tugma matnini almashtirish</h1>
-      <button onClick={toggleBtn}>{btnText}</button>
+      {/* 8-vazifa */}
+      <section className="box">
+        <h2>8-Vazifa: Foydalanuvchi ismini chiqarish</h2>
+        <input
+          type="text"
+          placeholder="Ismingizni yozing..."
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <p>Salom, {name || "..."}</p>
+      </section>
+
       <hr />
+
+      {/* 9-vazifa */}
+      <section className="box">
+        <h2>9-Vazifa: Dark / Light Mode</h2>
+        <button onClick={() => setDarkMode(!darkMode)}>
+          {darkMode ? "Light Mode" : "Dark Mode"}
+        </button>
+      </section>
+
+      <hr />
+
+      {/* 10-vazifa */}
+      <section className="box">
+        <h2>10-Vazifa: Props orqali rasm chiqarish</h2>
+        <div className="cards">
+          <Card img="https://picsum.photos/200?1" title="Rasm 1" />
+          <Card img="https://picsum.photos/200?2" title="Rasm 2" />
+          <Card img="https://picsum.photos/200?3" title="Rasm 3" />
+        </div>
+      </section>
+
     </div>
   );
 }
