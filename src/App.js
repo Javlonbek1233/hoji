@@ -1,4 +1,6 @@
 import { useState } from "react";
+import "./app1.js";
+
 
 // 1-vazifa: 3 ta component
 function Header() {
